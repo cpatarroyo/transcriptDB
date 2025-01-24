@@ -12,4 +12,5 @@ if __name__ == '__main__':
         return(table)
     
     conexion = sqlite3.connect('transcription.db')
+    
 
