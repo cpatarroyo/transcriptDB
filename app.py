@@ -24,6 +24,5 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.data_frame
     def resultsTab():
         return render.DataGrid(getResults(),selection_mode='rows')
-        #return getResults()
 
 app = App(app_ui, server)
