@@ -3,9 +3,9 @@ import sqlite3
 
 def bringTable(route: str, is_excel=False):
         if(is_excel):
-            table = pandas.read_excel(route, sheet_name=1, header=1)
+            table = pandas.read_excel(route, sheet_name=0, header=0)
         else:
-            table = pandas.read_table(route,sep='\t',header=1)    
+            table = pandas.read_table(route,sep='\t',header=0)    
         return(table)
 
 #Queries for the database
@@ -166,12 +166,12 @@ if __name__ == '__main__':
     
     #Filling the newly created tables
     expresion = bringTable('expresion_diferencial_cds.txt', False)
-    expresion.to_sql('expression', conexion, if_exists='fail', index=False)
+    expresion.to_sql('expression', conexion, if_exists='append', index=False)
     pannzer = bringTable('Pannzer_para_db.xlsx',True)
-    pannzer.to_sql('pannzerAn', if_exists="fail", index=True, index_label='id')
+    pannzer.to_sql('pannzerAn', conexion, if_exists="append", index=True, index_label='id')
     go = bringTable('panzerGO_para_db.xlsx',True)
-    go.to_sql('goAn', conexion, if_exists='fail', index=True, index_label='id')
+    go.to_sql('goAn', conexion, if_exists='append', index=True, index_label='id')
     eggnog = bringTable('Pannzer-Eggnog annotation_para_db.xlsx', True)
-    eggnog.to_sql('EggNogAn', conexion, if_exists='fail', index=True, index_label='id')
+    eggnog.to_sql('EggNogAn', conexion, if_exists='append', index=True, index_label='id')
     conexion.commit()
     conexion.close()
