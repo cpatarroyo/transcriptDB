@@ -12,7 +12,7 @@ def bringTable(route: str, is_excel=False):
 
 def nameSearch(name: str, signif: bool = False, signifThr: float = 0.05):
     if signif:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE expression.short_name LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -20,7 +20,7 @@ def nameSearch(name: str, signif: bool = False, signifThr: float = 0.05):
         ORDER BY expression.logFC DESC;"""
         extraParam = [name.join(['%','%']), signifThr]
     else:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE expression.short_name LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -34,7 +34,7 @@ def nameSearch(name: str, signif: bool = False, signifThr: float = 0.05):
 
 def ecSearch(ec: str, signif: bool = False, signifThr: float = 0.05):
     if signif:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.EC LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -42,7 +42,7 @@ def ecSearch(ec: str, signif: bool = False, signifThr: float = 0.05):
         ORDER BY expression.logFC DESC;"""
         extraParam = [ec.join(['%','%']), signifThr]
     else:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.EC LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -56,7 +56,7 @@ def ecSearch(ec: str, signif: bool = False, signifThr: float = 0.05):
 
 def pfamSearch(pfam: str, signif: bool = False, signifThr: float = 0.05):
     if signif:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.pfam LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -64,7 +64,7 @@ def pfamSearch(pfam: str, signif: bool = False, signifThr: float = 0.05):
         ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%']), signifThr]
     else:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.pfam LIKE ?
         GROUP BY expression.logFC, expression.FDR
@@ -78,20 +78,20 @@ def pfamSearch(pfam: str, signif: bool = False, signifThr: float = 0.05):
 
 def keggReactSearch(kegg: str, signif: bool = False, signifThr: float = 0.05):
     if signif:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.kegg_reaction LIKE ?
         GROUP BY expression.logFC, expression.FDR
         HAVING expression.FDR < ?
         ORDER BY expression.logFC DESC;"""
-        extraParam = [pfam.join(['%','%']), signifThr]
+        extraParam = [kegg.join(['%','%']), signifThr]
     else:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.kegg_reaction LIKE ?
         GROUP BY expression.logFC, expression.FDR
         ORDER BY expression.logFC DESC;"""
-        extraParam = [pfam.join(['%','%'])]
+        extraParam = [kegg.join(['%','%'])]
 
     with sqlite3.connect('transcription.db') as con:
         resultsTab = pandas.read_sql_query(sQuery, con = con, params = extraParam)
@@ -100,20 +100,23 @@ def keggReactSearch(kegg: str, signif: bool = False, signifThr: float = 0.05):
 
 def descriptionSearch(desc: str, signif: bool = False, signifThr: float = 0.05):
     if signif:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
-        WHERE pannzerAn LIKE ? OR goAn.description LIKE ? OR EggNogAn.long_desc LIKE ?
+        WHERE pannzerAn.description LIKE ? OR goAn.description LIKE ? OR EggNogAn.long_desc LIKE ?
         GROUP BY expression.logFC, expression.FDR
         HAVING expression.FDR < ?
         ORDER BY expression.logFC DESC;"""
-        extraParam = [pfam.join(['%','%']), pfam.join(['%','%']), pfam.join(['%','%']), signifThr]
+        extraParam = [desc.join(['%','%']), desc.join(['%','%']), desc.join(['%','%']), signifThr]
     else:
-        sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
+        sQuery = """SELECT expression.ORF AS ORF, expression.short_name AS Nombre, expression.logFC AS LogFC, expression.FDR AS FDR, pannzerAn.description AS Pannzer, goAn.description AS GO, EggNogAn.long_desc AS EggNOG
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
-        WHERE EggNogAn.kegg_reaction LIKE ?
+        WHERE pannzerAn.description LIKE ? OR goAn.description LIKE ? OR EggNogAn.long_desc LIKE ?
         GROUP BY expression.logFC, expression.FDR
         ORDER BY expression.logFC DESC;"""
-        extraParam = [pfam.join(['%','%']), pfam.join(['%','%']), pfam.join(['%','%'])]
+        extraParam = [desc.join(['%','%']), desc.join(['%','%']), desc.join(['%','%'])]
+    
+    with sqlite3.connect('transcription.db') as con:
+        resultsTab = pandas.read_sql_query(sQuery, con = con, params = extraParam)
     
     return resultsTab
 
