@@ -16,13 +16,15 @@ def nameSearch(name: str, signif: bool = False, signifThr: float = 0.05):
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE expression.short_name LIKE ?
         GROUP BY expression.logFC, expression.FDR
-        HAVING expression.FDR < ?;"""
+        HAVING expression.FDR < ?
+        ORDER BY expression.logFC DESC;"""
         extraParam = [name.join(['%','%']), signifThr]
     else:
         sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE expression.short_name LIKE ?
-        GROUP BY expression.logFC, expression.FDR;"""
+        GROUP BY expression.logFC, expression.FDR
+        ORDER BY expression.logFC DESC;"""
         extraParam = [name.join(['%','%'])]
     
     with sqlite3.connect('transcription.db') as con:
@@ -36,13 +38,15 @@ def ecSearch(ec: str, signif: bool = False, signifThr: float = 0.05):
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.EC LIKE ?
         GROUP BY expression.logFC, expression.FDR
-        HAVING expression.FDR < ?;"""
+        HAVING expression.FDR < ?
+        ORDER BY expression.logFC DESC;"""
         extraParam = [ec.join(['%','%']), signifThr]
     else:
         sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.EC LIKE ?
-        GROUP BY expression.logFC, expression.FDR;"""
+        GROUP BY expression.logFC, expression.FDR
+        ORDER BY expression.logFC DESC;"""
         extraParam = [ec.join(['%','%'])]
     
     with sqlite3.connect('transcription.db') as con:
@@ -56,13 +60,15 @@ def pfamSearch(pfam: str, signif: bool = False, signifThr: float = 0.05):
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.pfam LIKE ?
         GROUP BY expression.logFC, expression.FDR
-        HAVING expression.FDR < ?;"""
+        HAVING expression.FDR < ?
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%']), signifThr]
     else:
         sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.pfam LIKE ?
-        GROUP BY expression.logFC, expression.FDR;"""
+        GROUP BY expression.logFC, expression.FDR
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%'])]
     
     with sqlite3.connect('transcription.db') as con:
@@ -76,13 +82,15 @@ def keggReactSearch(kegg: str, signif: bool = False, signifThr: float = 0.05):
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.kegg_reaction LIKE ?
         GROUP BY expression.logFC, expression.FDR
-        HAVING expression.FDR < ?;"""
+        HAVING expression.FDR < ?
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%']), signifThr]
     else:
         sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.kegg_reaction LIKE ?
-        GROUP BY expression.logFC, expression.FDR;"""
+        GROUP BY expression.logFC, expression.FDR
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%'])]
 
     with sqlite3.connect('transcription.db') as con:
@@ -96,13 +104,15 @@ def descriptionSearch(desc: str, signif: bool = False, signifThr: float = 0.05):
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE pannzerAn LIKE ? OR goAn.description LIKE ? OR EggNogAn.long_desc LIKE ?
         GROUP BY expression.logFC, expression.FDR
-        HAVING expression.FDR < ?;"""
+        HAVING expression.FDR < ?
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%']), pfam.join(['%','%']), pfam.join(['%','%']), signifThr]
     else:
         sQuery = """SELECT expression.ORF, expression.short_name, expression.logFC, expression.FDR, pannzerAn.description, goAn.description, EggNogAn.long_desc 
         FROM ((expression LEFT JOIN goAn ON expression.ORF = goAn.ORF) LEFT JOIN pannzerAn ON expression.ORF = pannzerAn.ORF) LEFT JOIN EggNogAn ON expression.ORF = EggNogAn.ORF 
         WHERE EggNogAn.kegg_reaction LIKE ?
-        GROUP BY expression.logFC, expression.FDR;"""
+        GROUP BY expression.logFC, expression.FDR
+        ORDER BY expression.logFC DESC;"""
         extraParam = [pfam.join(['%','%']), pfam.join(['%','%']), pfam.join(['%','%'])]
     
     return resultsTab
