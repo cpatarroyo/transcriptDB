@@ -42,6 +42,6 @@ def server(input: Inputs, output: Outputs, session: Session):
     def difexp():
         recount = pd.cut(getResults()['LogFC'],[-np.inf,-1,1,np.inf], labels=['RE','NON','OE']).value_counts()
         fig, ax = mpl.subplots()
-        ax.pie([recount['RE'], recount['NON'], recount['OE']], labels = ['RE', 'No', 'SE'], autopct = "%1.1f%%", colors = ['red', 'gray','green'])        
+        ax.pie([recount['RE'], recount['NON'], recount['OE']], labels = [f'RE({recount['RE']})', f'No({recount['NON']})', f'SE({recount['OE']})'], autopct = "%1.0f%%", colors = ['red', 'gray','green'])
 
 app = App(app_ui, server)
