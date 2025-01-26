@@ -1,6 +1,7 @@
 from shiny import App, Inputs, Outputs, Session, reactive, render, ui
 import pandas as pd
-import matplotlib as mpl
+import matplotlib.pyplot as mpl
+import numpy as np
 from dbFunc import nameSearch, ecSearch, pfamSearch, keggReactSearch, descriptionSearch
 
 app_ui = ui.page_fluid(
@@ -36,5 +37,11 @@ def server(input: Inputs, output: Outputs, session: Session):
     @render.data_frame
     def resultsTab():
         return render.DataGrid(getResults(),selection_mode='rows')
+
+    @render.plot
+    def difexp():
+        recount = pd.cut(getResults()['LogFC'],[-np.inf,-1,1,np.inf], labels=['RE','NON','OE']).value_counts()
+        fig, ax = mpl.subplots()
+        ax.pie([recount['RE'], recount['NON'], recount['OE']], labels = ['RE', 'No', 'SE'], autopct = "%1.1f%%", colors = ['red', 'gray','green'])        
 
 app = App(app_ui, server)
